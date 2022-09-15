@@ -1,5 +1,6 @@
 package singleproject.bulletinboard;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrlTemplate;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -23,11 +24,12 @@ class HomeControllerTest {
 		this.mockMvc = MockMvcBuilders.standaloneSetup(homeController).build();
 	}
 
-	@DisplayName("홈페이지로 리다이렉트")
+	@DisplayName("접속 시 홈페이지로 이동")
 	@Test
-	void redirectHomePage() throws Exception {
+	void goHomePage() throws Exception {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/");
 		mockMvc.perform(requestBuilder)
-			.andExpect(status().is3xxRedirection());
+			.andExpect(status().isOk())
+			.andExpect(forwardedUrlTemplate("home"));
 	}
 }
