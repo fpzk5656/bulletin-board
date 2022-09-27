@@ -12,17 +12,17 @@ public class HomeController {
 	}
 
 	@GetMapping("/login")
-	public String goLogin() {
-		return "login";
+	public String login() {
+		return "page/login";
 	}
 
 	@GetMapping("/register")
 	public String goRegister() {
-		return "register";
+		return "page/register";
 	}
 
 	@GetMapping("/board")
 	public String goBoard() {
-		return "board";
+		return "page/login";
 	}
 }
