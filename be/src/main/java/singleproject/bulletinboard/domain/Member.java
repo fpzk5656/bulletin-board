@@ -15,7 +15,8 @@ public class Member {
 
 	private Long id;
 	private String name;
-	private String age;
+	private String password;
+	private int age;
 	private int point;
 	private List<Article> articles;
 	private List<Comment> comments;
