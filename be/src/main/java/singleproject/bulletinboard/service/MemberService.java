@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import singleproject.bulletinboard.controller.RequestJoinMemberInfo;
 import singleproject.bulletinboard.domain.Member;
 import singleproject.bulletinboard.repository.MemberRepository;
 
@@ -14,11 +15,18 @@ public class MemberService {
 	private final MemberRepository memberRepository;
 
 	// 회원 가입
-	public Long join(Member member) {
-		// TODO 중복 회원 검증 추가 필요
+	public void join(RequestJoinMemberInfo joinMemberInfo) {
+
+		duplicateMemberNameValidate(joinMemberInfo.getName());
+
+		Member member = Member.builder()
+			.name(joinMemberInfo.getName())
+			.password(joinMemberInfo.getPassword())
+			.age(joinMemberInfo.getAge())
+			.birthday(joinMemberInfo.getBirthday())
+			.build();
 
 		memberRepository.save(member);
-		return member.getId();
 	}
 
 	// 전체 회원 조회
@@ -29,5 +37,12 @@ public class MemberService {
 	// 특정 회원 조회
 	public Optional<Member> findById(Long id) {
 		return memberRepository.findById(id);
+	}
+
+	// 중복 회원 이름 검증
+	private void duplicateMemberNameValidate(String memberName) {
+		if (memberRepository.findByName(memberName).isPresent()) {
+			throw new IllegalArgumentException("중복된 회원 이름 입니다.");
+		}
 	}
 }
