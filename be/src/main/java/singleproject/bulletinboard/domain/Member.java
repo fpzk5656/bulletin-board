@@ -22,4 +22,8 @@ public class Member {
 	private List<Comment> comments;
 	private List<Member> friends;
 	private LocalDateTime birthday;
+
+	public boolean isSameName(String name){
+		return this.name.equals(name);
+	}
 }

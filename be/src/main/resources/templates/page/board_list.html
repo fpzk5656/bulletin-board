@@ -5,8 +5,6 @@
 
 <body>
 <div class="container"> <!--div는 웹페이지의 논리적인 구분을 정해주는 역할-->
-  <h1>Board</h1>
-  <p>게시판</p>
   <div>
     <table> <!-- table 태그는 표를 만드는 태그 -->
       <thead>
@@ -18,11 +16,8 @@
       </thead>
       <tbody> <!--table의 body를 구분해주는 역할-->
       <tr th:each="article : ${articles}"> <!--members에서 값을 뽑아 반복 -->
-<!--        <td th:text="${article.id}"></td> &lt;!&ndash;멤버의 id를 text로 표시하는 듯&ndash;&gt;-->
-<!--        <td th:text="${article.title}"></td> &lt;!&ndash;멤버의 name을 text로 표시하는 듯&ndash;&gt;-->
-        <td><a th:href="@{/board/article/{id}(id=${article.id})}" th:text="${article.id}">게시글 번호</a></td>
-        <td><a th:href="@{/board/article/{id}(id=${article.id})}" th:text="${article.title}">게시글 제목</a></td>
-        <td th:text="${article.createdTime}">작성일</td>
+        <td th:text="${article.id}"></td> <!--멤버의 id를 text로 표시하는 듯-->
+        <td th:text="${article.title}"></td> <!--멤버의 name을 text로 표시하는 듯-->
       </tr>
       </tbody>
     </table>
