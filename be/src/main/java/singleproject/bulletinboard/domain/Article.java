@@ -1,6 +1,27 @@
 package singleproject.bulletinboard.domain;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
 public class Article {
 
-	// dummy data
+	private Long id;
+	private Member writer;
+	private String title;
+	private String content;
+	private LocalDateTime createdTime;
+	private List<Comment> comments = new ArrayList<>();
+
+	public boolean isSameWriterName(String writerName) {
+		return this.writer.isSameName(writerName);
+	}
 }
