@@ -13,9 +13,9 @@ public class RegisterController {
 
 	private final MemberService memberService;
 
-	@GetMapping("/")
-	public String goHome() {
-		return "home";
+	@GetMapping("/register")
+	public String goRegister() {
+		return "page/register";
 	}
 
 	@PostMapping("/register/join")
