@@ -19,7 +19,7 @@ public class Article {
 	private String title;
 	private String content;
 	private LocalDateTime createdTime;
-	private List<Comment> comments = new ArrayList<>();
+	private List<Comment> comments;
 
 	public boolean isSameWriterName(String writerName) {
 		return this.writer.isSameName(writerName);
