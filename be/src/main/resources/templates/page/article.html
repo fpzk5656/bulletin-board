@@ -4,11 +4,8 @@
 <head th:insert="fragments/header :: header"></head>
 
 <body>
-<div class="container"> <!--div는 웹페이지의 논리적인 구분을 정해주는 역할-->
+<div class="container" style="max-width: 600px"> <!--div는 웹페이지의 논리적인 구분을 정해주는 역할-->
   <h1>Article</h1>
-  <tr th:each="article : ${articles}">
-    <td th:text="${article.title}"></td>
-  </tr>
   <div>
     <table th:each="article : ${article}"> <!-- table 태그는 표를 만드는 태그 -->
       <thead>
@@ -16,6 +13,7 @@
         <th th:text="${article.title}"></th>
       </tr>
       </thead>
+      <hr class="my-4">
       <p>
         <tbody>
         <tr>
