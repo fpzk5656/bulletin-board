@@ -1,13 +1,15 @@
 package singleproject.bulletinboard.controller;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import singleproject.bulletinboard.domain.Article;
 import singleproject.bulletinboard.domain.Comment;
 import singleproject.bulletinboard.domain.Member;
 
+@AllArgsConstructor
 @Getter
 public class ResponseArticleInfo {
 
@@ -18,15 +20,12 @@ public class ResponseArticleInfo {
 	private String createdTime;
 	private List<Comment> comments;
 
-	public ResponseArticleInfo(Long id, Member writer, String title, String content,
-		LocalDateTime createdTime, List<Comment> comments) {
-
-		this.id = id;
-		this.writer = writer;
-		this.title = title;
-		this.content = content;
-		this.createdTime = createdTime.truncatedTo(ChronoUnit.SECONDS)
-			.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-		this.comments = comments;
+	public static ResponseArticleInfo from(Article article) {
+		return new ResponseArticleInfo(article.getId(),
+			article.getWriter(),
+			article.getTitle(),
+			article.getContent(),
+			article.getCreatedTime().truncatedTo(ChronoUnit.SECONDS)
+				.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), article.getComments());
 	}
 }
