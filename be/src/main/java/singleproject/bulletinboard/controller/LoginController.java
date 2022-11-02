@@ -14,7 +14,7 @@ import singleproject.bulletinboard.service.MemberService;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-public class UserController {
+public class LoginController {
 
 	private final MemberService memberService;
 
