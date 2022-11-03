@@ -23,7 +23,6 @@ public class MemberService {
 			.name(joinMemberInfo.getName())
 			.password(joinMemberInfo.getPassword())
 			.age(joinMemberInfo.getAge())
-			.birthday(joinMemberInfo.getBirthday())
 			.build();
 
 		memberRepository.save(member);
@@ -44,5 +43,17 @@ public class MemberService {
 		if (memberRepository.findByName(memberName).isPresent()) {
 			throw new IllegalArgumentException("중복된 회원 이름 입니다.");
 		}
+	}
+
+	/**
+	 * 로그인
+	 *
+	 * @return null 로그인 실패
+	 */
+	public Member login(String name, String password) {
+
+		return memberRepository.findByName(name)
+			.filter(member -> member.getPassword().equals(password))
+			.orElse(null);
 	}
 }
