@@ -1,5 +1,7 @@
 package singleproject.bulletinboard.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +27,7 @@ public class LoginController {
 
 	@PostMapping("/login")
 	public String login(@Valid @ModelAttribute("loginForm") UserLoginForm loginForm,
-		BindingResult bindingResult){
+		BindingResult bindingResult, HttpServletRequest request){
 		if(bindingResult.hasErrors()){
 			log.info("errors = {}", bindingResult);
 			return "page/login";
@@ -39,8 +41,23 @@ public class LoginController {
 			return "page/login";
 		}
 
-		// TODO 로그인 성공
+		// 로그인 성공
+		// 세션이 있으면 세션 반환, 없다면 신규 세션을 생성한다.
+		HttpSession session = request.getSession();
 
+		// 세션에 회원 로그인 정보 보관
+		session.setAttribute(SessionConst.LOGIN_USER, loginUser);
+
+		return "redirect:/";
+	}
+
+	@PostMapping("/logout")
+	public String logout(HttpServletRequest request){
+		HttpSession session = request.getSession(false);
+		if(session != null){
+			// 세션 무효화
+			session.invalidate();
+		}
 		return "redirect:/";
 	}
 }
