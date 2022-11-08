@@ -12,6 +12,7 @@ import singleproject.bulletinboard.repository.MemberRepository;
 @RequiredArgsConstructor
 public class MemberService {
 
+	public static final Integer FirstUserPoint = 0;
 	private final MemberRepository memberRepository;
 
 	// 회원 가입
@@ -23,6 +24,8 @@ public class MemberService {
 			.name(joinMemberInfo.getName())
 			.password(joinMemberInfo.getPassword())
 			.age(joinMemberInfo.getAge())
+			.point(FirstUserPoint)
+			.birthday(joinMemberInfo.getBirthday())
 			.build();
 
 		memberRepository.save(member);

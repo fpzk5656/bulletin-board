@@ -20,12 +20,14 @@ public class MemoryMemberRepository implements MemberRepository {
 		Long newId = sequence.incrementAndGet();
 		Member newMember = member.builder()
 			.id(newId)
+			.name(member.getName())
 			.age(member.getAge())
 			.point(member.getPoint())
-			.name(member.getName())
+			.password(member.getPassword())
 			.birthday(member.getBirthday())
 			.build();
 		store.put(newId, newMember);
+
 		return newMember;
 	}
 

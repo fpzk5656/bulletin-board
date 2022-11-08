@@ -1,6 +1,6 @@
 package singleproject.bulletinboard.domain;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,14 +16,14 @@ public class Member {
 	private Long id;
 	private String name;
 	private String password;
-	private int age;
-	private int point;
+	private Integer age;
+	private Integer point;
 	private List<Article> articles;
 	private List<Comment> comments;
 	private List<Member> friends;
-	private LocalDateTime birthday;
+	private LocalDate birthday;
 
-	public boolean isSameName(String name){
+	public boolean isSameName(String name) {
 		return this.name.equals(name);
 	}
 }
