@@ -1,6 +1,7 @@
 package singleproject.bulletinboard.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,9 @@ public class BoardController {
 	@GetMapping("/board")
 	public String board(Model model) {
 
-		List<Article> articles = boardService.findArticles();
+		List<ResponseArticleInfo> articles = boardService.findArticles().stream()
+			.map(article -> ResponseArticleInfo.from(article))
+			.collect(Collectors.toList());
 
 		model.addAttribute("articles", articles);
 		return "page/board";
@@ -42,7 +45,7 @@ public class BoardController {
 	@GetMapping("/board/article/{id}")
 	public String viewArticle(@PathVariable Long id, Model model) {
 		Article article = boardService.findById(id).orElseThrow();
-		model.addAttribute("article", article);
+		model.addAttribute("article", ResponseArticleInfo.from(article));
 
 		return "page/article";
 	}

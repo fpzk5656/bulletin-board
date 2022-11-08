@@ -4,11 +4,12 @@
 <head th:insert="fragments/header :: header"></head>
 
 <body>
-<div class="container"> <!--div는 웹페이지의 논리적인 구분을 정해주는 역할-->
+<div class="container" style="max-width: 600px"> <!--div는 웹페이지의 논리적인 구분을 정해주는 역할-->
   <h1>Board</h1>
-  <p>게시판</p>
+  <h2>게시판</h2>
+  <hr class="my-4">
   <div>
-    <table> <!-- table 태그는 표를 만드는 태그 -->
+    <table class="table"> <!-- table 태그는 표를 만드는 태그 -->
       <thead>
       <!-- thead 태그는 table의 헤더 콘텐츠들을 하나로 묶을 때 쓰인다함.head,body,footer등을 명시하기 위해 tbody,tfooter와 함께 쓰인다함 -->
       <tr> <!--table의 가로줄을 만듬. table row의 약자-->
@@ -17,9 +18,7 @@
       </tr>
       </thead>
       <tbody> <!--table의 body를 구분해주는 역할-->
-      <tr th:each="article : ${articles}"> <!--members에서 값을 뽑아 반복 -->
-<!--        <td th:text="${article.id}"></td> &lt;!&ndash;멤버의 id를 text로 표시하는 듯&ndash;&gt;-->
-<!--        <td th:text="${article.title}"></td> &lt;!&ndash;멤버의 name을 text로 표시하는 듯&ndash;&gt;-->
+      <tr th:each="article : ${articles}">
         <td><a th:href="@{/board/article/{id}(id=${article.id})}" th:text="${article.id}">게시글 번호</a></td>
         <td><a th:href="@{/board/article/{id}(id=${article.id})}" th:text="${article.title}">게시글 제목</a></td>
         <td th:text="${article.createdTime}">작성일</td>
