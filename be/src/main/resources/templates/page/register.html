@@ -34,6 +34,13 @@
         <div class="field-error" th:errors="*{age}"/>
       </div>
 
+      <div>
+        <label for="birthday">생일</label>
+        <input type="date" id="birthday" th:field="*{birthday}" class="form-control"
+               th:errorclass="field-error">
+        <div class="field-error" th:errors="*{birthday}"/>
+      </div>
+
       <hr class="my-4">
 
       <div class="row">
