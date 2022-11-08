@@ -21,21 +21,21 @@ public class LoginController {
 	private final MemberService memberService;
 
 	@GetMapping("/login")
-	public String loginForm(@ModelAttribute("loginForm") UserLoginForm loginForm){
+	public String loginForm(@ModelAttribute("loginForm") UserLoginForm loginForm) {
 		return "page/login";
 	}
 
 	@PostMapping("/login")
 	public String login(@Valid @ModelAttribute("loginForm") UserLoginForm loginForm,
-		BindingResult bindingResult, HttpServletRequest request){
-		if(bindingResult.hasErrors()){
+		BindingResult bindingResult, HttpServletRequest request) {
+		if (bindingResult.hasErrors()) {
 			log.info("errors = {}", bindingResult);
 			return "page/login";
 		}
 
-		Member loginUser = memberService.login(loginForm.getName(),loginForm.getPassword());
+		Member loginUser = memberService.login(loginForm.getName(), loginForm.getPassword());
 
-		if(loginUser == null){
+		if (loginUser == null) {
 			log.info("login Fail");
 			bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
 			return "page/login";
@@ -52,9 +52,9 @@ public class LoginController {
 	}
 
 	@PostMapping("/logout")
-	public String logout(HttpServletRequest request){
+	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		if(session != null){
+		if (session != null) {
 			// 세션 무효화
 			session.invalidate();
 		}
