@@ -15,13 +15,14 @@ public class BoardService {
 	private final ArticleRepository articleRepository;
 	private final MemberRepository memberRepository;
 
-	public void write(String title, String content, Long userId) {
+	public Long write(String title, String content, Long userId) {
 
-		articleRepository.save(Article.builder()
+		Article article = articleRepository.save(Article.builder()
 			.title(title)
 			.content(content)
 			.writer(memberRepository.findById(userId).orElseThrow())
 			.build());
+		return article.getId();
 	}
 
 	public List<Article> findArticles() {
@@ -30,5 +31,14 @@ public class BoardService {
 
 	public Optional<Article> findById(Long id) {
 		return articleRepository.findById(id);
+	}
+
+	public void updateArticle(Long id, String title, String content) {
+		Article article = articleRepository.findById(id).orElseThrow();
+		article.update(title, content);
+	}
+
+	public void deleteById(Long id) {
+		articleRepository.deleteById(id);
 	}
 }
