@@ -1,7 +1,6 @@
 package singleproject.bulletinboard.domain;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,5 +22,10 @@ public class Article {
 
 	public boolean isSameWriterName(String writerName) {
 		return this.writer.isSameName(writerName);
+	}
+
+	public void update(String title, String content) {
+		this.title = title;
+		this.content = content;
 	}
 }
