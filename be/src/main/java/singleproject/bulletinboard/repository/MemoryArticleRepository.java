@@ -60,4 +60,9 @@ public class MemoryArticleRepository implements ArticleRepository {
 			.filter(article -> article.isSameWriterName(name))
 			.findAny();
 	}
+
+	@Override
+	public void deleteById(Long id) {
+		store.remove(id);
+	}
 }
