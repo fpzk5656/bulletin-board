@@ -4,29 +4,55 @@
 <head th:insert="fragments/header :: header"></head>
 
 <body>
-<div class="container" style="max-width: 600px"> <!--div는 웹페이지의 논리적인 구분을 정해주는 역할-->
-  <h1>Article</h1>
-  <div>
-    <table th:each="article : ${article}"> <!-- table 태그는 표를 만드는 태그 -->
-      <thead>
-      <tr>
-        <th th:text="${article.title}"></th>
-      </tr>
-      </thead>
-      <hr class="my-4">
-      <p>
-        <tbody>
-        <tr>
-          <td th:text="${article.content}"></td>
-        </tr>
-        </tbody>
-      </p>
-      <tfoot>
-      <td>글 작성한 시간:</td>
-      <td th:text="${article.createdTime}"></td>
-      </tfoot>
-    </table>
+<div class="container">
+  <div class="py-5 text-center">
+    <h2>게시글</h2>
   </div>
+
+  <button class="btn btn-dark pull-right"
+          onclick="location.href='page/board.html'"
+          th:onclick="|location.href='@{/board}'|"
+          type="button">게시판으로
+  </button>
+
+  <div>
+    <label for="articleId">게시판번호</label>
+    <input type="text" id="articleId" name="articleId" class="form-control"
+           value="1" th:value="${article.id}" readonly>
+  </div>
+
+  <div>
+    <label for="articleTitle">제목</label>
+    <input type="text" id="articleTitle" name="articleTitle" class="form-control"
+           value="제목" th:value="${article.title}" readonly>
+  </div>
+  <div>
+    <label for="articleContent">내용</label>
+    <textarea class="form-control" rows="5"
+              id="articleContent" name="articleContent"
+              th:value="${article.content}" th:text="${article.content}" readonly></textarea>
+  </div>
+  <div>
+    <label for="writer">작성자</label>
+    <input type="text" id="writer" name="writer" class="form-control"
+           value="작성자" th:value="${article.writer.name}" readonly>
+  </div>
+  <div>
+    <label for="createdTime">작성일</label>
+    <input type="text" id="createdTime" name="createdTime" class="form-control"
+           value="작성자" th:value="${article.createdTime}" readonly>
+  </div>
+  <hr class="my-4">
+
+  <form th:action="@{/board/{postId}/delete(articleId=${article.id})}" method="post">
+    <button class="btn btn-primary"
+            th:onclick="|location.href='@{/board/{articleId}/edit(articleId=${article.id})}'|"
+            type="button">수정
+    </button>
+
+    <button class="btn btn-danger" type="submit">삭제</button>
+  </form>
+
 </div>
 </body>
 </html>

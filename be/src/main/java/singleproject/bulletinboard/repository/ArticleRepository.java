@@ -12,4 +12,5 @@ public interface ArticleRepository {
 	void delete(Article article);
 	Optional<Article> findById(Long id);
 	Optional<Article> findByName(String name);
+	void deleteById(Long id);
 }
