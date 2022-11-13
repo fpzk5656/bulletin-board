@@ -44,7 +44,7 @@
   </div>
   <hr class="my-4">
 
-  <form th:action="@{/board/{postId}/delete(articleId=${article.id})}" method="post">
+  <form th:action="@{/board/{articleId}/delete(articleId=${article.id})}" method="post">
     <button class="btn btn-primary"
             th:onclick="|location.href='@{/board/{articleId}/edit(articleId=${article.id})}'|"
             type="button">수정
