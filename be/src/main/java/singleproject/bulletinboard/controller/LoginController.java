@@ -26,24 +26,6 @@ public class LoginController {
 		return "page/login";
 	}
 
-//	@PostMapping("/login")
-//	public String login(@Valid @ModelAttribute("loginForm") UserLoginForm loginForm, BindingResult bindingResult, HttpServletRequest request
-//	,@RequestParam(defaultValue = "/") String redirectURL){
-//
-//		if(bindingResult.hasErrors()){
-//			log.info("errors = {}", bindingResult);
-//			return "page/loginForm";
-//		}
-//
-//		Member loginUser = memberService.login(loginForm.getName(),loginForm.getPassword());
-//
-//		if(loginUser == null){
-//			log.info("login Fail");
-//			bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-//		}
-//
-//	}
-
 	@PostMapping("/login")
 	public String login(@Valid @ModelAttribute("loginForm") UserLoginForm loginForm,
 		BindingResult bindingResult, HttpServletRequest request,

@@ -38,6 +38,12 @@ public class BoardService {
 		article.update(title, content);
 	}
 
+	public boolean checkWriterName(String writerName, Long articleId) {
+
+		return articleRepository.findById(articleId).orElseThrow()
+			.isSameWriterName(writerName);
+	}
+
 	public void deleteById(Long id) {
 		articleRepository.deleteById(id);
 	}
