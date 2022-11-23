@@ -5,16 +5,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
-import org.springframework.stereotype.Repository;
 import singleproject.bulletinboard.domain.Member;
 
-@Repository
-public class MemoryMemberRepository implements MemberRepository {
+public class MemoryMemberRepository {
 
 	private final ConcurrentHashMap<Long, Member> store = new ConcurrentHashMap<>();
 	private static AtomicLong sequence = new AtomicLong();
 
-	@Override
 	public Member save(Member member) {
 
 		Long newId = sequence.incrementAndGet();
@@ -31,13 +28,11 @@ public class MemoryMemberRepository implements MemberRepository {
 		return newMember;
 	}
 
-	@Override
 	public Optional<Member> findById(Long id) {
 
 		return Optional.ofNullable(store.get(id));
 	}
 
-	@Override
 	public Optional<Member> findByName(String name) {
 
 		return store.values().stream()
@@ -45,7 +40,6 @@ public class MemoryMemberRepository implements MemberRepository {
 			.findAny();
 	}
 
-	@Override
 	public List<Member> findAll() {
 
 		return new ArrayList<>(store.values());

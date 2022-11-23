@@ -1,16 +1,8 @@
 package singleproject.bulletinboard.repository;
 
-import java.util.List;
-import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
 import singleproject.bulletinboard.domain.Article;
 
-public interface ArticleRepository {
+public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-	Article save(Article article);
-	List<Article> findByMember(String name);
-	List<Article> findAll();
-	void delete(Article article);
-	Optional<Article> findById(Long id);
-	Optional<Article> findByName(String name);
-	void deleteById(Long id);
 }
