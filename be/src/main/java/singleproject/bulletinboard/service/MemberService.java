@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import singleproject.bulletinboard.controller.RequestJoinMemberInfo;
 import singleproject.bulletinboard.domain.Member;
 import singleproject.bulletinboard.repository.MemberRepository;
@@ -16,6 +17,7 @@ public class MemberService {
 	private final MemberRepository memberRepository;
 
 	// 회원 가입
+	@Transactional
 	public void join(RequestJoinMemberInfo joinMemberInfo) {
 
 		duplicateMemberNameValidate(joinMemberInfo.getName());
@@ -39,6 +41,11 @@ public class MemberService {
 	// 특정 회원 조회
 	public Optional<Member> findById(Long id) {
 		return memberRepository.findById(id);
+	}
+
+	// 특정 회원 이름으로 조회
+	public Optional<Member> findByName(String name){
+		return memberRepository.findByName(name);
 	}
 
 	// 중복 회원 이름 검증
