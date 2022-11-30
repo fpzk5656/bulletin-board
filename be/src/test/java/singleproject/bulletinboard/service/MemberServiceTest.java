@@ -2,45 +2,42 @@ package singleproject.bulletinboard.service;
 
 import static org.assertj.core.api.Assertions.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import singleproject.bulletinboard.controller.RequestJoinMemberInfo;
 import singleproject.bulletinboard.domain.Member;
-import singleproject.bulletinboard.repository.MemoryMemberRepository;
+import singleproject.bulletinboard.repository.MemberRepository;
 
+@SpringBootTest
+@Transactional
 class MemberServiceTest {
 
-	private MemberService memberService;
-	private MemoryMemberRepository memberRepository;
-
-	@BeforeEach
-	public void setUp() {
-		this.memberRepository = new MemoryMemberRepository();
-		this.memberService = new MemberService(this.memberRepository);
-	}
+	@Autowired private MemberService memberService;
+	@Autowired private MemberRepository memberRepository;
 
 	@Test
 	void join() {
 		// given
 		RequestJoinMemberInfo joinMemberInfo = new RequestJoinMemberInfo("철수", "123", 25,
-			LocalDateTime.of(1999, 12, 31, 00, 00, 00));
+			LocalDate.of(1999, 12, 31));
 		memberService.join(joinMemberInfo);
 		// when
-		String member1Name = memberService.findById(1L).orElseThrow().getName();
+		List<Member> members = memberService.findMembers();
 		// then
-		assertThat(member1Name).isEqualTo(joinMemberInfo.getName());
+		assertThat(members.size()).isEqualTo(1);
 	}
 
 	@Test
 	void findMembers() {
 		// given
 		RequestJoinMemberInfo joinMemberInfo1 = new RequestJoinMemberInfo("철수", "123", 25,
-			LocalDateTime.of(1999, 12, 31, 00, 00, 00));
+			LocalDate.of(1999, 12, 31));
 		RequestJoinMemberInfo joinMemberInfo2 = new RequestJoinMemberInfo("영희", "456", 27,
-			LocalDateTime.of(1997, 1, 1, 00, 00, 00));
+			LocalDate.of(1999, 12, 31));
 		memberService.join(joinMemberInfo1);
 		memberService.join(joinMemberInfo2);
 		// when
@@ -53,9 +50,9 @@ class MemberServiceTest {
 	void findById() {
 		// given
 		RequestJoinMemberInfo joinMemberInfo1 = new RequestJoinMemberInfo("철수", "123", 25,
-			LocalDateTime.of(1999, 12, 31, 00, 00, 00));
+			LocalDate.of(1999, 12, 31));
 		RequestJoinMemberInfo joinMemberInfo2 = new RequestJoinMemberInfo("영희", "456", 27,
-			LocalDateTime.of(1997, 1, 1, 00, 00, 00));
+			LocalDate.of(1999, 12, 31));
 		memberService.join(joinMemberInfo1);
 		memberService.join(joinMemberInfo2);
 		// when
@@ -64,10 +61,5 @@ class MemberServiceTest {
 		// then
 		assertThat(joinMemberInfo1.getName()).isEqualTo(member1Name);
 		assertThat(joinMemberInfo2.getName()).isEqualTo(member2Name);
-	}
-
-	@AfterEach
-	public void afterEach() {
-		memberRepository.clearStore();
 	}
 }
