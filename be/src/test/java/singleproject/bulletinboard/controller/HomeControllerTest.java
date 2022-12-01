@@ -29,30 +29,4 @@ class HomeControllerTest {
 			.andExpect(status().isOk())
 			.andExpect(forwardedUrl("home"));
 	}
-
-	@DisplayName("로그인 버튼: 로그인 페이지로 이동한다.")
-	@Test
-	void goLoginPage() throws Exception {
-
-		mockMvc.perform(get("/login"))
-			.andExpect(status().isOk())
-			.andExpect(forwardedUrl("page/login"));
-	}
-
-	@DisplayName("회원가입 버튼: 회원가입 페이지로 이동한다.")
-	@Test
-	void goRegisterPage() throws Exception {
-
-		mockMvc.perform(get("/register"))
-			.andExpect(status().isOk())
-			.andExpect(forwardedUrl("page/register"));
-	}
-
-	@DisplayName("게시판 버튼: 게시판 페이지로 이동한다.")
-	@Test
-	void goBoardPage() throws Exception {
-		mockMvc.perform(get("/board"))
-			.andExpect(status().isOk())
-			.andExpect(forwardedUrl("page/login"));
-	}
 }

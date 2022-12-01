@@ -9,38 +9,37 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import singleproject.bulletinboard.domain.Member;
+import singleproject.bulletinboard.repository.MemberRepository;
 import singleproject.bulletinboard.repository.MemoryMemberRepository;
 import singleproject.bulletinboard.service.MemberService;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+@Transactional
 class RegisterControllerTest {
 
-	private RegisterController registerController;
-	private MemoryMemberRepository memberRepository;
-	private MemberService memberService;
-	private MockMvc mockMvc;
-
-	@BeforeEach
-	public void setUp() {
-		this.memberRepository = new MemoryMemberRepository();
-		this.memberService = new MemberService(memberRepository);
-		this.registerController = new RegisterController(memberService);
-		this.mockMvc = MockMvcBuilders.standaloneSetup(registerController).build();
-	}
-
-
-	@Test
-	void goHome() throws Exception {
-		mockMvc.perform(get("/"))
-			.andExpect(status().isOk())
-			.andExpect(forwardedUrl("home"));
-	}
+	@Autowired private RegisterController registerController;
+	@Autowired private MockMvc mockMvc;
+	@Autowired private MemberRepository memberRepository;
+	@Autowired private MemberService memberService;
 
 	@Test
 	void joinMembership() throws Exception {
@@ -52,21 +51,17 @@ class RegisterControllerTest {
 		String con = new ObjectMapper().writeValueAsString(member1);
 
 		// when
-		mockMvc.perform(post("/register/join")
+		mockMvc.perform(post("/register")
 				.content(con)
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().is3xxRedirection())
 			.andDo(print());
 
-		Member member2 = memberService.findById(1L).orElseThrow();
+		List<Member> members = memberService.findMembers();
+		Member member2 = members.get(0);
 
 		// then
-		assertThat(member1.getName()).isEqualTo(member2.getName());
-	}
-
-	@AfterEach
-	public void afterEach() {
-		memberRepository.clearStore();
+		assertThat(1L).isEqualTo(member2.getId());
 	}
 }

@@ -18,7 +18,8 @@ public class ResponseArticleInfo {
 	private String title;
 	private String content;
 	private String createdTime;
-	private List<Comment> comments;
+	// TODO 댓글
+	//private List<Comment> comments;
 
 	public static ResponseArticleInfo from(Article article) {
 		return new ResponseArticleInfo(article.getId(),
@@ -26,6 +27,6 @@ public class ResponseArticleInfo {
 			article.getTitle(),
 			article.getContent(),
 			article.getCreatedTime().truncatedTo(ChronoUnit.SECONDS)
-				.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), article.getComments());
+				.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
 	}
 }
