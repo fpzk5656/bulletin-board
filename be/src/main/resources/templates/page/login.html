@@ -42,6 +42,22 @@
                 type="button">취소
         </button>
       </div>
+
+      <div class="col">
+        <button class="w-100 btn btn-success"
+                th:onclick="|location.href='@{/oauth2/authorization/google}|"
+                type="button">google login</button>
+<!--        <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google-->
+<!--          Login</a>-->
+      </div>
+
+      <div class="col">
+        <button class="w-100 btn btn-success"
+                th:onclick="|location.href='@{/logout}|"
+                type="button">logout</button>
+<!--        <a href="/logout" class="btn btn-info active" role="button">Logout</a>-->
+      </div>
+
     </div>
   </form>
 </div>
