@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import singleproject.bulletinboard.domain.Article;
-import singleproject.bulletinboard.domain.Member;
+import singleproject.bulletinboard.domain.user.Member;
 import singleproject.bulletinboard.service.BoardService;
 
 @Controller
@@ -57,10 +57,10 @@ public class BoardController {
 
 	@GetMapping("/board/article/write")
 	public String writeArticleForm(
-		@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) Member loginUser) {
+		@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) Member loginMember) {
 
 		// 로그인 유저가 아니면 글을 작성할 수 없다.
-		if (loginUser == null) {
+		if (loginMember == null) {
 			log.info("로그인을 하지 않으면 글을 작성할 수 없습니다.");
 			return "redirect:/board";
 		}
@@ -71,7 +71,7 @@ public class BoardController {
 	@PostMapping("/board/article/create")
 	public String createArticle(@Valid @ModelAttribute RequestCreatedArticleInfo createdArticleInfo,
 		BindingResult bindingResult,
-		@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) Member loginUser,
+		@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) Member loginMember,
 		RedirectAttributes redirectAttributes) {
 
 		if (bindingResult.hasErrors()) {
@@ -80,14 +80,14 @@ public class BoardController {
 		}
 
 		// 로그인 유저가 아니면 글을 작성할 수 없다.
-		if (loginUser == null) {
+		if (loginMember == null) {
 			log.info("로그인을 하지 않으면 글을 작성할 수 없습니다.");
 			return "redirect:/board";
 		}
 
 		Long articleId = boardService.write(createdArticleInfo.getTitle(),
 			createdArticleInfo.getContent(),
-			loginUser.getId());
+			loginMember.getId());
 		redirectAttributes.addAttribute("articleId", articleId);
 
 		return "redirect:/board/article/{articleId}";
@@ -95,9 +95,9 @@ public class BoardController {
 
 	@GetMapping("/board/{articleId}/edit")
 	public String editForm(@PathVariable Long articleId, Model model,
-		@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) Member loginUser) {
+		@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) Member loginMember) {
 
-		if (boardService.checkWriterName(loginUser.getName(), articleId) == false) {
+		if (boardService.checkWriterName(loginMember.getName(), articleId) == false) {
 			log.info("해당 글을 수정할 권한이 없습니다.");
 
 			return "redirect:/board/article/{articleId}";
@@ -117,14 +117,14 @@ public class BoardController {
 	@PostMapping("/board/{articleId}/edit")
 	public String edit(@PathVariable Long articleId,
 		@Valid @ModelAttribute RequestCreatedArticleInfo articleForm, BindingResult bindingResult,
-		@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) Member loginUser) {
+		@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) Member loginMember) {
 
 		if (bindingResult.hasErrors()) {
 			log.info("errors = {}", bindingResult);
 			return "page/editForm";
 		}
 
-		if (boardService.checkWriterName(loginUser.getName(), articleId) == false) {
+		if (boardService.checkWriterName(loginMember.getName(), articleId) == false) {
 			log.info("해당 글을 수정할 권한이 없습니다.");
 
 			return "redirect:/board/article/{articleId}";
@@ -137,9 +137,9 @@ public class BoardController {
 
 	@PostMapping("/board/{articleId}/delete")
 	public String delete(@PathVariable Long articleId,
-		@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) Member loginUser) {
+		@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) Member loginMember) {
 
-		if (boardService.checkWriterName(loginUser.getName(), articleId) == false) {
+		if (boardService.checkWriterName(loginMember.getName(), articleId) == false) {
 			log.info("해당 글을 삭제할 권한이 없습니다.");
 
 			return "redirect:/board/article/{articleId}";

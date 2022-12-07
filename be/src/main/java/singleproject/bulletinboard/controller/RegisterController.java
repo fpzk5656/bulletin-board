@@ -18,7 +18,7 @@ public class RegisterController {
 	private final MemberService memberService;
 
 	@GetMapping("/register")
-	public String goRegister(@ModelAttribute("joinForm") RequestJoinMemberInfo memberJoinInfo) {
+	public String goRegister(@ModelAttribute("joinForm") RequestJoinUserInfo memberJoinInfo) {
 
 		log.info("registry form");
 		return "page/register";
@@ -26,7 +26,7 @@ public class RegisterController {
 
 	@PostMapping("/register")
 	public String joinMembership(
-		@Valid @ModelAttribute("joinForm") RequestJoinMemberInfo memberJoinInfo,
+		@Valid @ModelAttribute("joinForm") RequestJoinUserInfo memberJoinInfo,
 		BindingResult bindingResult) {
 
 		log.info("register");

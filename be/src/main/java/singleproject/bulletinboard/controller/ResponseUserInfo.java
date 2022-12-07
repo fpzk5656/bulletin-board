@@ -3,7 +3,7 @@ package singleproject.bulletinboard.controller;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import singleproject.bulletinboard.domain.Member;
+import singleproject.bulletinboard.domain.user.Member;
 
 @AllArgsConstructor
 @Getter

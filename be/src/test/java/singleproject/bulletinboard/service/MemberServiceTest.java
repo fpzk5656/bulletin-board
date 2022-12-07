@@ -8,21 +8,24 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import singleproject.bulletinboard.controller.RequestJoinMemberInfo;
-import singleproject.bulletinboard.domain.Member;
+import singleproject.bulletinboard.controller.RequestJoinUserInfo;
+import singleproject.bulletinboard.domain.user.Member;
 import singleproject.bulletinboard.repository.MemberRepository;
 
 @SpringBootTest
 @Transactional
 class MemberServiceTest {
 
-	@Autowired private MemberService memberService;
-	@Autowired private MemberRepository memberRepository;
+	@Autowired
+	private MemberService memberService;
+	@Autowired
+	private MemberRepository memberRepository;
 
 	@Test
 	void join() {
 		// given
-		RequestJoinMemberInfo joinMemberInfo = new RequestJoinMemberInfo("철수", "123", 25,
+		RequestJoinUserInfo joinMemberInfo = new RequestJoinUserInfo("철수", "123", "eee@naver.com",
+			25,
 			LocalDate.of(1999, 12, 31));
 		memberService.join(joinMemberInfo);
 		// when
@@ -34,9 +37,11 @@ class MemberServiceTest {
 	@Test
 	void findMembers() {
 		// given
-		RequestJoinMemberInfo joinMemberInfo1 = new RequestJoinMemberInfo("철수", "123", 25,
+		RequestJoinUserInfo joinMemberInfo1 = new RequestJoinUserInfo("철수", "123", "eee@naver.com",
+			25,
 			LocalDate.of(1999, 12, 31));
-		RequestJoinMemberInfo joinMemberInfo2 = new RequestJoinMemberInfo("영희", "456", 27,
+		RequestJoinUserInfo joinMemberInfo2 = new RequestJoinUserInfo("영희", "456", "eee@naver.com",
+			27,
 			LocalDate.of(1999, 12, 31));
 		memberService.join(joinMemberInfo1);
 		memberService.join(joinMemberInfo2);
@@ -49,9 +54,11 @@ class MemberServiceTest {
 	@Test
 	void findById() {
 		// given
-		RequestJoinMemberInfo joinMemberInfo1 = new RequestJoinMemberInfo("철수", "123", 25,
+		RequestJoinUserInfo joinMemberInfo1 = new RequestJoinUserInfo("철수", "123", "eee@naver.com",
+			25,
 			LocalDate.of(1999, 12, 31));
-		RequestJoinMemberInfo joinMemberInfo2 = new RequestJoinMemberInfo("영희", "456", 27,
+		RequestJoinUserInfo joinMemberInfo2 = new RequestJoinUserInfo("영희", "456", "eee@naver.com",
+			27,
 			LocalDate.of(1999, 12, 31));
 		memberService.join(joinMemberInfo1);
 		memberService.join(joinMemberInfo2);

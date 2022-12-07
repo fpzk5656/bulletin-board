@@ -11,10 +11,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RequestJoinMemberInfo {
+public class RequestJoinUserInfo {
 
 	private String name;
 	private String password;
+	private String email;
 	private Integer age;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthday;

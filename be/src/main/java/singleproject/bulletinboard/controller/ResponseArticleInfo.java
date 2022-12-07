@@ -2,12 +2,10 @@ package singleproject.bulletinboard.controller;
 
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import singleproject.bulletinboard.domain.Article;
-import singleproject.bulletinboard.domain.Comment;
-import singleproject.bulletinboard.domain.Member;
+import singleproject.bulletinboard.domain.user.Member;
 
 @AllArgsConstructor
 @Getter

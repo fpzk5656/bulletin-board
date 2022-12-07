@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import singleproject.bulletinboard.domain.Member;
+import singleproject.bulletinboard.domain.user.Member;
 
 class MemoryMemberRepositoryTest {
 

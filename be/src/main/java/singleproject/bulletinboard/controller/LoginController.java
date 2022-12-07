@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import singleproject.bulletinboard.domain.Member;
+import singleproject.bulletinboard.domain.user.Member;
 import singleproject.bulletinboard.service.MemberService;
 
 @Controller
@@ -35,9 +35,9 @@ public class LoginController {
 			return "page/login";
 		}
 
-		Member loginUser = memberService.login(loginForm.getName(), loginForm.getPassword());
+		Member loginMember = memberService.login(loginForm.getName(), loginForm.getPassword());
 
-		if (loginUser == null) {
+		if (loginMember == null) {
 			log.info("login Fail");
 			bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
 			return "page/login";
@@ -48,7 +48,7 @@ public class LoginController {
 		HttpSession session = request.getSession();
 
 		// 세션에 회원 로그인 정보 보관
-		session.setAttribute(SessionConst.LOGIN_USER, loginUser);
+		session.setAttribute(SessionConst.LOGIN_USER, loginMember);
 
 		// 로그인에 성공 시 처음 요청한 URL로 이동
 		return "redirect:" + redirectURL;

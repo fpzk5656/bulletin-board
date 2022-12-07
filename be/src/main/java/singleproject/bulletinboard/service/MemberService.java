@@ -5,8 +5,9 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import singleproject.bulletinboard.controller.RequestJoinMemberInfo;
-import singleproject.bulletinboard.domain.Member;
+import singleproject.bulletinboard.controller.RequestJoinUserInfo;
+import singleproject.bulletinboard.domain.user.Member;
+import singleproject.bulletinboard.domain.user.Role;
 import singleproject.bulletinboard.repository.MemberRepository;
 
 @Service
@@ -18,7 +19,7 @@ public class MemberService {
 
 	// 회원 가입
 	@Transactional
-	public void join(RequestJoinMemberInfo joinMemberInfo) {
+	public void join(RequestJoinUserInfo joinMemberInfo) {
 
 		duplicateMemberNameValidate(joinMemberInfo.getName());
 
@@ -28,6 +29,8 @@ public class MemberService {
 			.age(joinMemberInfo.getAge())
 			.point(FirstUserPoint)
 			.birthday(joinMemberInfo.getBirthday())
+			.email(joinMemberInfo.getEmail())
+			.role(Role.USER)
 			.build();
 
 		memberRepository.save(member);
@@ -44,7 +47,7 @@ public class MemberService {
 	}
 
 	// 특정 회원 이름으로 조회
-	public Optional<Member> findByName(String name){
+	public Optional<Member> findByName(String name) {
 		return memberRepository.findByName(name);
 	}
 
