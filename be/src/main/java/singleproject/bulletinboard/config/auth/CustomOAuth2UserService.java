@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import singleproject.bulletinboard.config.auth.dto.OAuthAttributes;
 import singleproject.bulletinboard.config.auth.dto.SessionUser;
+import singleproject.bulletinboard.controller.SessionConst;
 import singleproject.bulletinboard.domain.user.Member;
 import singleproject.bulletinboard.repository.MemberRepository;
 
@@ -47,7 +48,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 				oAuth2User.getAttributes());
 
 		Member member = saveOrUpdate(attributes);
-		httpSession.setAttribute("user",
+
+		httpSession.setAttribute(SessionConst.LOGIN_USER,
 			new SessionUser(member)); // SessionUser는 세션에 사용자 정보를 저장하기 위한 Dto 클래스
 
 		return new DefaultOAuth2User(
