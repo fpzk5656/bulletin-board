@@ -8,7 +8,7 @@
   <div class="py-5 text-center">
     <h1>Login</h1>
   </div>
-  <form action="article.html" th:action th:object="${loginForm}" method="post">
+  <form action="/authenticate" th:action="@{/authenticate}" th:object="${loginForm}" method="post">
     <div th:if="${#fields.hasGlobalErrors()}">
       <p class="field-error" th:each="err : ${#fields.globalErrors()}"
          th:text="${err}">전체 오류 메시지</p>
@@ -30,6 +30,9 @@
     </div>
 
     <hr class="my-4">
+    <div th:if="error">
+      <p id="valid" style="color: red; font-size:12px;"><a th:text="${exception}"></a></p>
+    </div>
     <div class="row">
       <div class="col">
         <button class="w-100 btn btn-primary btn-lg" type="submit">
@@ -45,17 +48,14 @@
 
       <div class="col">
         <button class="w-100 btn btn-success"
-                th:onclick="|location.href='@{/oauth2/authorization/google}|"
+                th:onclick="|location.href='@{/oauth2/authorization/google}'|"
                 type="button">google login</button>
-<!--        <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google-->
-<!--          Login</a>-->
       </div>
 
       <div class="col">
         <button class="w-100 btn btn-success"
-                th:onclick="|location.href='@{/logout}|"
+                th:onclick="|location.href='@{/logout}'|"
                 type="button">logout</button>
-<!--        <a href="/logout" class="btn btn-info active" role="button">Logout</a>-->
       </div>
 
     </div>

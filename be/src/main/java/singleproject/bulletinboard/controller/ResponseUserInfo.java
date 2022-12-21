@@ -12,6 +12,7 @@ public class ResponseUserInfo {
 	private Long id;
 	private String name;
 	private String password;
+	private String email;
 	private Integer age;
 	private Integer point;
 	private LocalDate birthday;
@@ -19,6 +20,6 @@ public class ResponseUserInfo {
 	public static ResponseUserInfo from(Member member) {
 
 		return new ResponseUserInfo(member.getId(), member.getName(), member.getPassword(),
-			member.getAge(), member.getPoint(), member.getBirthday());
+			member.getEmail(), member.getAge(), member.getPoint(), member.getBirthday());
 	}
 }
