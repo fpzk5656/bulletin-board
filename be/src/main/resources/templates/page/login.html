@@ -49,7 +49,13 @@
       <div class="col">
         <button class="w-100 btn btn-success"
                 th:onclick="|location.href='@{/oauth2/authorization/google}'|"
-                type="button">google login</button>
+                type="button">Google login</button>
+      </div>
+
+      <div class="col">
+        <button class="w-100 btn btn-success"
+                th:onclick="|location.href='@{/oauth2/authorization/naver}'|"
+                type="button">Naver login</button>
       </div>
 
       <div class="col">
@@ -57,7 +63,6 @@
                 th:onclick="|location.href='@{/logout}'|"
                 type="button">logout</button>
       </div>
-
     </div>
   </form>
 </div>
