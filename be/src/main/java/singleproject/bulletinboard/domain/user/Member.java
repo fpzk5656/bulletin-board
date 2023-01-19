@@ -48,6 +48,7 @@ public class Member {
 	private Integer age;
 	private Integer point;
 
+	@Builder.Default
 	@OneToMany(mappedBy = "writer")
 	private List<Article> articles = new ArrayList<>();
 
