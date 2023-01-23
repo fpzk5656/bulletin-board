@@ -4,9 +4,14 @@ jdk:
 
 branches:
   only:
-    - master
+    - main
 
-# Travis CI 서버의 Home
+# 소스코드 위치에 따른 폴더 위치 초기화
+before_install:
+  - cd ./be
+  - chmod +x gradlew
+
+# Travis CI 서버의 Home.
 cache:
   directories:
     - '$HOME/.m2/repository'
