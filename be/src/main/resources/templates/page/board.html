@@ -15,11 +15,14 @@
       <tr> <!--table의 가로줄을 만듬. table row의 약자-->
         <th>#</th> <!--table의 세로줄을 만듬. table head의 약자-->
         <th>이름</th>
+        <th>제목</th>
+        <th>작성시간</th>
       </tr>
       </thead>
       <tbody> <!--table의 body를 구분해주는 역할-->
       <tr th:each="article : ${articles}">
         <td><a th:href="@{/board/article/{id}(id=${article.id})}" th:text="${article.id}">게시글 번호</a></td>
+        <td><a th:text="${article.writer.name}">게시글 작성자</a></td>
         <td><a th:href="@{/board/article/{id}(id=${article.id})}" th:text="${article.title}">게시글 제목</a></td>
         <td th:text="${article.createdTime}">작성일</td>
       </tr>
