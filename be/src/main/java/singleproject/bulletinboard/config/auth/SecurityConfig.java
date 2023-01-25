@@ -41,7 +41,7 @@ public class SecurityConfig {
 		http.csrf().disable().headers().frameOptions().disable()
 			.and()
 			.authorizeHttpRequests()
-			.antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**","/profile","/register","/members","/board/**","/user/login").permitAll()   // 인증 없이도 접근가능하게 설정
+			.antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**","/register","/members","/board/**","/user/login","/profile").permitAll()   // 인증 없이도 접근가능하게 설정
 			.antMatchers("/board/article/**").hasRole(Role.USER.name())
 			.anyRequest().authenticated()
 			.and()
