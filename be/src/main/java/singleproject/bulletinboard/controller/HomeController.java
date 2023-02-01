@@ -23,7 +23,7 @@ public class HomeController {
 
 			model.addAttribute("member",
 				ResponseUserInfo.from(
-					memberService.findByName(loginMember.getName()).orElseThrow()));
+					memberService.findById(loginMember.getId()).orElseThrow()));
 			return "page/loginHome";
 		}
 
